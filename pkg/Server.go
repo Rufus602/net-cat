@@ -23,7 +23,7 @@ type Message struct {
 	Text   string
 }
 
-func (server *Server) Broadcaster() {
+func (server *Server) Spreader() {
 	file, err := os.OpenFile("History.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		log.Fatal(err)

@@ -24,6 +24,6 @@ func main() {
 	defer l.Close()
 	mu := &sync.Mutex{}
 	var server Server = Server{0, make(map[string]net.Conn), make(chan Message), make(chan string), make(chan string), mu}
-	go server.Broadcaster()
+	go server.Spreader()
 	server.Client(l)
 }

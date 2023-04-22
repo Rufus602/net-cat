@@ -5,6 +5,7 @@ import (
 	"net"
 	. "net-cat/pkg"
 	"os"
+	"sync"
 )
 
 func main() {
@@ -21,6 +22,8 @@ func main() {
 	}
 	fmt.Println("Listening on localhost:" + args[0])
 	defer l.Close()
-	var server Server = Server{0, nil, nil}
+	mu := &sync.Mutex{}
+	var server Server = Server{0, make(map[string]net.Conn), make(chan Message), make(chan string), make(chan string), mu}
+	go server.Broadcaster()
 	server.Client(l)
 }
